@@ -32,10 +32,23 @@ function ConvertHandler() {
     return 'invalid unit';
   };
   
-  this.getReturnUnit = function (initUnit) {
-    var result;
-    
-    return result;
+  this.getReturnUnit = initUnit => {
+    switch (initUnit.toLowerCase()) {
+      case 'mi' :
+        return 'km';
+      case 'km' :
+        return 'mi';
+      case 'gal':
+        return 'l';
+      case 'l'  :
+        return 'gal';
+      case 'lbs':
+        return 'kg';
+      case 'kg' :
+        return 'lbs';
+      default   :
+        return 'Invalid Unit';
+    }
   };
   
   this.spellOutUnit = function (unit) {
