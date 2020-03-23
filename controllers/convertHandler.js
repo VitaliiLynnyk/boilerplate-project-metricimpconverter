@@ -6,6 +6,10 @@
 *       
 */
 
+function patternExecute(value, pattern) {
+  return pattern.exec(value)[0].replace(/\s/g, '');
+}
+
 function ConvertHandler() {
   
   this.getNum = input => {
@@ -15,10 +19,14 @@ function ConvertHandler() {
     return Number(numberPart) ? numberPart : 'invalid number';
   };
   
-  this.getUnit = function (input) {
-    var result;
+  this.getUnit = input => {
+    const units = [ 'gal', 'l', 'mi', 'km', 'lbs', 'kg' ];
+    const pattern = /[^0-9.]+.*/;
+    const patternExec = patternExecute(input, pattern);
     
-    return result;
+    if (units.includes(patternExec)) return patternExec;
+    
+    return 'invalid unit';
   };
   
   this.getReturnUnit = function (initUnit) {
@@ -47,7 +55,6 @@ function ConvertHandler() {
     
     return result;
   };
-  
 }
 
 module.exports = ConvertHandler;
