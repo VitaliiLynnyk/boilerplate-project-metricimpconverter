@@ -51,10 +51,23 @@ function ConvertHandler() {
     }
   };
   
-  this.spellOutUnit = function (unit) {
-    var result;
-    
-    return result;
+  this.spellOutUnit = unit => {
+    switch (unit.toLowerCase()) {
+      case 'mi' :
+        return 'miles';
+      case 'km' :
+        return 'kilometers';
+      case 'gal':
+        return 'gallons';
+      case 'l'  :
+        return 'liters';
+      case 'lbs':
+        return 'pounds';
+      case 'kg' :
+        return 'kilograms';
+      default   :
+        return 'Invalid Unit';
+    }
   };
   
   this.convert = function (initNum, initUnit) {
