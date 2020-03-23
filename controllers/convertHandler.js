@@ -93,11 +93,7 @@ function ConvertHandler() {
     }
   };
   
-  this.getString = function (initNum, initUnit, returnNum, returnUnit) {
-    var result;
-    
-    return result;
-  };
+  this.getString = (initNum, initUnit, returnNum, returnUnit) => `initNum ${this.spellOutUnit(initUnit)} converts to ${returnNum.toFixed(5)} ${this.spellOutUnit(returnUnit)}`;
 }
 
 module.exports = ConvertHandler;
