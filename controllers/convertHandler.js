@@ -13,10 +13,13 @@ function patternExecute(value, pattern) {
 function ConvertHandler() {
   
   this.getNum = input => {
+    const units = [ 'gal', 'l', 'mi', 'km', 'lbs', 'kg' ];
     const pattern = /\d?[^a-z]*/;
-    if (input.toLowerCase() === 'gal' | 'lbs' | 'mi' | 'l' | 'kg' | 'km') return 1;
-    const numberPart = pattern.exec(input)[0].replace(/\s/g, '');
-    return Number(numberPart) ? numberPart : 'invalid number';
+    const patternExec = patternExecute(input, pattern);
+    
+    if (units.includes(input)) return 1;
+    
+    return Number(patternExec) ? patternExec : 'invalid number';
   };
   
   this.getUnit = input => {
