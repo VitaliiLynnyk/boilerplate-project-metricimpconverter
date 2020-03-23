@@ -13,6 +13,7 @@ var runner = require('./test-runner');
 const app = express();
 
 app.use(helmet.noSniff());
+app.use(helmet.xssFilter());
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
