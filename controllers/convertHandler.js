@@ -20,11 +20,13 @@ function ConvertHandler() {
     const units = [ 'gal', 'l', 'mi', 'km', 'lbs', 'kg' ];
     const pattern = /\d?[^a-z]*/;
     const patternExec = patternExecute(input, pattern);
-    const numb = Number(patternExec);
     
     if (units.includes(input)) return 1;
     
-    return numb ? numb : 'invalid number';
+    if (Number(patternExec)) {
+      return Number(patternExec);
+    }
+    throw Error('invalid number');
   };
   
   this.getUnit = input => {
@@ -34,7 +36,7 @@ function ConvertHandler() {
     
     if (units.includes(patternExec)) return patternExec;
     
-    return 'invalid unit';
+    new Error('invalid unit');
   };
   
   this.getReturnUnit = initUnit => {
@@ -52,7 +54,7 @@ function ConvertHandler() {
       case 'kg' :
         return 'lbs';
       default   :
-        return 'Invalid Unit';
+        throw Error('invalid unit');
     }
   };
   
@@ -71,7 +73,7 @@ function ConvertHandler() {
       case 'kg' :
         return 'kilograms';
       default   :
-        return 'Invalid Unit';
+        throw Error('invalid unit');
     }
   };
   
@@ -101,7 +103,7 @@ function ConvertHandler() {
         convertedNumb = initNum / lbsToKg;
         break;
       default   :
-        return 'ERROR';
+        throw Error('Error');
     }
     
     return toFormatNumber(convertedNumb);
