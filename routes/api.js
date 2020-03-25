@@ -20,22 +20,32 @@ module.exports = function (app) {
     const input = req.query.input;
     let initNum, initUnit, returnNum, returnUnit, toString;
     
-    try {
-      initNum = convertHandler.getNum(input);
-      initUnit = convertHandler.getUnit(input);
-      returnNum = convertHandler.convert(initNum, initUnit);
-      returnUnit = convertHandler.getReturnUnit(initUnit);
-      toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
-      
-      res.json({
-        'initNum': initNum,
-        'initUnit': initUnit,
-        'returnNum': returnNum,
-        'returnUnit': returnUnit,
-        'string': toString
-      });
-    } catch (e) {
-      res.json({ error: e.message })
+    // try {
+    initNum = convertHandler.getNum(input);
+    initUnit = convertHandler.getUnit(input);
+    
+    if (initNum === 'invalid number' && initUnit === 'invalid unit') {
+      res.json({ error: 'invalid number and unit' });
+    } else if (initNum === 'invalid number') {
+      res.json({ error: 'invalid number' });
+    } else if (initUnit === 'invalid unit') {
+      res.json({ error: 'invalid unit' });
     }
+    
+    returnNum = convertHandler.convert(initNum, initUnit);
+    returnUnit = convertHandler.getReturnUnit(initUnit);
+    toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
+    
+    res.json({
+      'initNum': initNum,
+      'initUnit': initUnit,
+      'returnNum': returnNum,
+      'returnUnit': returnUnit,
+      'string': toString
+    });
+    
+    // } catch (e) {
+    //   res.json({ error: e.message })
+    // }
   });
 };

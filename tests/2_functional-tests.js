@@ -19,14 +19,14 @@ suite('Functional Tests', function () {
     
     suite('GET /api/convert => conversion object', function () {
       
-      test('Convert 10L (valid input)', function (done) {
+      test('Convert 10l (valid input)', function (done) {
         chai.request(server)
         .get('/api/convert')
-        .query({ input: '10L' })
+        .query({ input: '10l' })
         .end(function (err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.body.initNum, 10);
-          assert.equal(res.body.initUnit, 'L');
+          assert.equal(res.body.initUnit, 'l');
           assert.approximately(res.body.returnNum, 2.64172, 0.1);
           assert.equal(res.body.returnUnit, 'gal');
           done();

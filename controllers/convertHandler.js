@@ -17,16 +17,22 @@ function toFormatNumber(numb) {
 function ConvertHandler() {
   
   this.getNum = input => {
-    const units = [ 'gal', 'l', 'mi', 'km', 'lbs', 'kg' ];
-    const pattern = /\d?[^a-z]*/;
-    const patternExec = patternExecute(input, pattern);
+    let indexOfUnit = input.search(/[a-zA-Z]/);
+    let numbers;
     
-    if (units.includes(input)) return 1;
-    
-    if (Number(patternExec)) {
-      return Number(patternExec);
+    if (indexOfUnit === -1) {
+      numbers = input;
+    } else {
+      numbers = input.substring(0, indexOfUnit);
     }
-    throw Error('invalid number');
+    
+    if (numbers.length === 0) {
+      numbers = '1';
+    }
+    
+    if (numbers.split(/\//).length > 2) return 'invalid number';
+    
+    return eval(numbers);
   };
   
   this.getUnit = input => {
@@ -36,7 +42,7 @@ function ConvertHandler() {
     
     if (units.includes(patternExec)) return patternExec;
     
-    new Error('invalid unit');
+    return 'invalid unit';
   };
   
   this.getReturnUnit = initUnit => {
